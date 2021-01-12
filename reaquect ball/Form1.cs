@@ -239,11 +239,7 @@ namespace reaquect_ball
             {
                 ballXSpeed *= -1;
             }
-           // For top & bottom wall
-           //if (ballY > 0 || ballY < this.Height - ballHeight)
-         //  {
-           //    ballYSpeed *= -1;
-          //  }
+      
             Rectangle player1Rec = new Rectangle(paddle1X, paddle1Y, paddleWidth, paddleHeight);
             Rectangle player2Rec = new Rectangle(paddle2X, paddle2Y, paddleWidth, paddleHeight);
             Rectangle ballRec = new Rectangle(ballX, ballY, ballWidth, ballHeight);
@@ -251,14 +247,14 @@ namespace reaquect_ball
             {
                 sound1.Play();
                 ballYSpeed = 8;
-            //    ballXSpeed=-5;
+        
                 ballY = paddle1Y + paddleHeight+1;
             }
                if(player2Rec.IntersectsWith(ballRec))
             {
                 sound1.Play();
                 ballYSpeed = -8;
-             //   ballXSpeed = -5;
+          
                 ballY = paddle2Y-10;
             }
             // when p2 scores on p1 
@@ -269,8 +265,7 @@ namespace reaquect_ball
                 p2Score.Text = $"{player2Score}";
                 ballX = 425;
                 ballY = 256;
-             //   ballXSpeed = 0;
-              //  ballYSpeed = 0;
+      
             }
            if(ballY>this.Height)
             {
@@ -279,8 +274,7 @@ namespace reaquect_ball
                 p1Score.Text = $"{player1Score}";
                 ballX=425;
                  ballY=256;
-            //    ballXSpeed = 0;
-            //    ballYSpeed = 0;
+       
             }
           
                 //when a player hits 5
