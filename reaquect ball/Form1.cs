@@ -10,7 +10,9 @@ using System.Windows.Forms;
 using System.Media;
 
 namespace reaquect_ball
-{
+{//Creator of code:David 
+    //date of this typing:Jan,21,2021
+    //This is a recration of a airhockey game 
     public partial class Form1 : Form
     {
         
@@ -45,9 +47,6 @@ namespace reaquect_ball
         bool downArrowDown = false;
         bool leftDown = false;
         bool rightDown = false;
-        //for ball reset 
-        int p1Reset;
-        int p2Reset;
         //sounds 
         SoundPlayer sound1 = new SoundPlayer(Properties.Resources.neck_snap_Vladimir_719669812);
         SoundPlayer sound2 = new SoundPlayer(Properties.Resources.Shotgun_SoundBible_com_862990674);
@@ -188,11 +187,6 @@ namespace reaquect_ball
                     break;
             }
         }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void tick_Tick(object sender, EventArgs e)
         //To move ball 
         {
@@ -243,6 +237,8 @@ namespace reaquect_ball
             Rectangle player1Rec = new Rectangle(paddle1X, paddle1Y, paddleWidth, paddleHeight);
             Rectangle player2Rec = new Rectangle(paddle2X, paddle2Y, paddleWidth, paddleHeight);
             Rectangle ballRec = new Rectangle(ballX, ballY, ballWidth, ballHeight);
+            Rectangle bottomRetangle = new Rectangle(350, 490, 200, 0);
+            Rectangle topRectangle = new Rectangle(350, 0, 200, 0);
             if (player1Rec.IntersectsWith(ballRec))
             {
                 sound1.Play();
@@ -258,7 +254,7 @@ namespace reaquect_ball
                 ballY = paddle2Y-10;
             }
             // when p2 scores on p1 
-           if (ballY < 0)
+           if (topRectangle.IntersectsWith(ballRec))
             {
                 sound2.Play();
                 player2Score += 1;
@@ -267,7 +263,8 @@ namespace reaquect_ball
                 ballY = 256;
       
             }
-           if(ballY>this.Height)
+           //when player 1 scores on p2
+           if(bottomRetangle.IntersectsWith(ballRec))
             {
                 sound2.Play();
                 player1Score += 1;
@@ -276,12 +273,21 @@ namespace reaquect_ball
                  ballY=256;
        
             }
+            //ball collisions with the top & bottom wall 
+            if(ballY>480)
+            {
+                ballYSpeed *= -1;
+            }
+            if(ballY<0)
+            {
+                ballYSpeed *= -1;
+            }
           
                 //when a player hits 5
                 if (player1Score == 5 || player2Score == 5)
-            {
+              {
                 tick.Enabled = false;
-            }
+               }
             
             Refresh();
         }
@@ -295,9 +301,11 @@ namespace reaquect_ball
             e.Graphics.DrawLine(whitePen, 200, 0, 200, 700);
             e.Graphics.DrawLine(whitePen, 700, 0, 700, 700);
             e.Graphics.DrawLine(whitePen, 200, 260,700, 260);
+            e.Graphics.DrawLine(whitePen,200, 5, 700, 5);
+            e.Graphics.DrawRectangle(whitePen,350,5,200,50);
+            e.Graphics.DrawRectangle(whitePen, 350, 440, 200, 50);
             e.Graphics.DrawEllipse(whitePen,400,225,70,70);
-           // e.Graphics.DrawString($"{player1Score}", screenFont, whiteBrush, 280, 10);
-            //e.Graphics.DrawString($"{player2Score}", screenFont, whiteBrush, 310, 10);
+       
 
         }
     }
